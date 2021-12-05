@@ -1,38 +1,18 @@
 package com.example.onlinemedicalstore;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.auth.FirebaseAuth;
+import android.os.Bundle;
 
-public class UserDashboard extends AppCompatActivity {
-
-    private TextView logOut;
+public class MedicinesList extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_dashboard);
-
-        logOut = (TextView) findViewById(R.id.logout_btn);
-
-        logOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(UserDashboard.this,MainActivity.class));
-                SharedPref.getInstance(getApplicationContext()).setUserType("0",getApplicationContext());
-                finish();
-            }
-        });
-
+        setContentView(R.layout.activity_medicines_list);
 
         CategoryModel[] myListData = new CategoryModel[]{
                 new CategoryModel("Email", android.R.drawable.ic_dialog_email),
@@ -50,14 +30,11 @@ public class UserDashboard extends AppCompatActivity {
         };
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-
-        CategoryAdapter adapter = new CategoryAdapter(myListData , this);
+        MedicineAdapter adapter = new MedicineAdapter(myListData , this);
         recyclerView.setHasFixedSize(true);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this.getApplicationContext(), 3, GridLayoutManager.VERTICAL, false);
-
-        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
     }
 
     // Enables Always-on
-}
+    }

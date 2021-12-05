@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+
+
+
+
+    <!--<include
+        android:id="@+id/progressbar"
+        layout="@layout/full_screen_progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />-->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        >
+
+
+        <LinearLayout
+            android:id="@+id/medicine_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:orientation="vertical">
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp"
+                app:cardUseCompatPadding="true">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+
+                    <ImageView
+                        android:id="@+id/detail_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:src="@drawable/logo"
+                        app:tint="@color/colorPrimary"></ImageView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <!--<TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Price: "
+                            android:textColor="@color/black_color"
+                            android:textSize="20dp"></TextView>-->
+
+                        <TextView
+                            android:id="@+id/detail_newprice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Price "
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="25dp"
+                            android:textStyle="bold"></TextView>
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/detail_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Title"
+                            android:textAllCaps="true"
+                            android:textColor="@color/black"
+                            android:textSize="20dp"
+                            android:textStyle="bold"></TextView>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/detail_qty"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:layout_marginLeft="2dp"
+                            android:text="Qty"
+                            android:textColor="@color/black"
+                            android:textSize="14dp">
+
+                        </TextView>
+
+
+                        <TextView
+                            android:id="@+id/detail_unit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:text="Unit"
+                            android:textColor="@color/black"
+                            android:textSize="14dp"></TextView>
+
+                        <TextView
+                            android:id="@+id/detail_manufacture"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:text="manufacture"
+                            android:textColor="@color/black"
+                            android:textSize="14dp"></TextView>
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/price_discount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+
+                        <TextView
+                            android:id="@+id/detail_dicount"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="percent "
+                            android:textColor="@color/black"
+                            android:textSize="14dp"></TextView>
+
+                        <TextView
+                            android:id="@+id/detail_oldprice"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="old price "
+                            android:gravity="right"
+                            android:textColor="@color/purple_200"
+                            android:textSize="14dp"></TextView>
+                    </LinearLayout>
+
+                    <LinearLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+
+                        <TextView
+                            android:id="@+id/Quantity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Quantity "
+                            android:textColor="@color/black"
+                            android:textSize="18dp"></TextView>
+
+
+                       <!-- <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
+                            android:id="@+id/elegant_btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:elevation="6dp"
+                            app:backGroundColor="@color/title_color"
+                            app:finalNumber="10"
+                            app:initialNumber="1"
+                            app:textColor="@color/dark_blue"
+                            app:textSize="6dp">
+
+                        </com.cepheuen.elegantnumberbutton.view.ElegantNumberButton>
+-->
+                    </LinearLayout>
+
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        >
+
+
+                        <TextView
+                            android:id="@+id/detail_description"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="Description"
+                            android:textColor="@color/black"
+                            android:textSize="14dp"></TextView>
+
+                    </ScrollView>
+
+                    <Button
+                        android:id="@+id/add_to_cart"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/colorPrimary"
+                        android:padding="5dp"
+                        android:text="Add To Cart"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"></Button>
+
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</RelativeLayout>
