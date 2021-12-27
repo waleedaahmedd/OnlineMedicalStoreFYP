@@ -91,7 +91,35 @@ public class MainActivity extends AppCompatActivity {
                             if (snapshot.exists()) {
                                 role = "Admin";
                                 ExecuteRole(role);
-                            } else {
+                            }
+
+                            else {
+                                //    Toast.makeText(getApplicationContext(), "Search User", Toast.LENGTH_SHORT).show();
+
+                                DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("User").child(id[0]);
+                                reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if (snapshot.exists()) {
+                                            role = "User";
+                                            ExecuteRole(role);
+                                        } else {
+
+                                            progressDialog.dismiss();
+
+                                            Toast.makeText(getApplicationContext(), "Invalid Login Credentials", Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                        progressDialog.dismiss();
+                                        Toast.makeText(getApplicationContext(),error.toString() , Toast.LENGTH_LONG).show();
+
+                                    }
+                                });
+                            }/*else {
                              //   Toast.makeText(getApplicationContext(), "Search Workers", Toast.LENGTH_SHORT).show();
 
                                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Worker").child(id[0]);
@@ -102,32 +130,6 @@ public class MainActivity extends AppCompatActivity {
                                             role = "Worker";
                                             ExecuteRole(role);
 
-                                        } else {
-                                        //    Toast.makeText(getApplicationContext(), "Search User", Toast.LENGTH_SHORT).show();
-
-                                            DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("User").child(id[0]);
-                                            reference.addListenerForSingleValueEvent(new ValueEventListener() {
-                                                @Override
-                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                    if (snapshot.exists()) {
-                                                        role = "User";
-                                                        ExecuteRole(role);
-                                                    } else {
-
-                                                        progressDialog.dismiss();
-
-                                                        Toast.makeText(getApplicationContext(), "Invalid Login Credentials", Toast.LENGTH_LONG).show();
-                                                    }
-                                                }
-
-                                                @Override
-                                                public void onCancelled(@NonNull DatabaseError error) {
-
-                                                    progressDialog.dismiss();
-                                                    Toast.makeText(getApplicationContext(),error.toString() , Toast.LENGTH_LONG).show();
-
-                                                }
-                                            });
                                         }
                                     }
 
@@ -138,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
                                     }
                                 });
 
-                            }
+                            }*/
                         }
 
                         @Override

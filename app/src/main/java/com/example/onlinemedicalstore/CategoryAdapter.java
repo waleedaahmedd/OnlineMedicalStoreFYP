@@ -13,13 +13,18 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder>{
-    private CategoryModel[] listdata;
+    private List<CategoriesModel> categoriesListData;
     private UserDashboard context;
 
     // RecyclerView recyclerView;
-    public CategoryAdapter(CategoryModel[] listdata, UserDashboard userDashboard) {
-        this.listdata = listdata;
+    public CategoryAdapter(List<CategoriesModel> listdata, UserDashboard userDashboard) {
+        this.categoriesListData = listdata;
         this.context = userDashboard;
     }
     @Override
@@ -32,9 +37,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final CategoryModel myListData = listdata[position];
-        holder.textView.setText(listdata[position].getDescription());
-        holder.imageView.setImageResource(listdata[position].getImgId());
+        final CategoriesModel myListData = categoriesListData.get(position);
+        holder.textView.setText(myListData.getName());
+        Picasso.get()
+                .load(myListData.getImage())
+                .into(holder.imageView);
+
+      //  holder.imageView.setImageResource(myListData.getImage());
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,7 +57,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return listdata.length;
+        return categoriesListData.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

@@ -153,8 +153,11 @@ public class AddNewCategory extends AppCompatActivity {
                                 Uri downloadUrl = task.getResult();
                                 myUrl = downloadUrl.toString();
 
+
                                 final DatabaseReference RootRef1;
-                                RootRef1 = FirebaseDatabase.getInstance().getReference();
+                                RootRef1 = FirebaseDatabase.getInstance().getReference().child("Categories");
+                                String id= RootRef1.push().getKey();
+
                                 RootRef1.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -164,7 +167,7 @@ public class AddNewCategory extends AppCompatActivity {
                                             HashMap<String, Object> userdataMap = new HashMap<>();
                                             userdataMap.put("name",name);
                                             userdataMap.put("image",myUrl);
-                                            RootRef1.child("Categories").updateChildren(userdataMap)
+                                            RootRef1.child(id).updateChildren(userdataMap)
                                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                         @Override
                                                         public void onComplete(@NonNull Task<Void> task) {

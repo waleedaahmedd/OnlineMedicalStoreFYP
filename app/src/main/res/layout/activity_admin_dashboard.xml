@@ -5,15 +5,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="20dp"
     tools:context=".AdminDashboard"
     tools:deviceIds="wear">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal"
+        android:padding="20dp"
+        android:weightSum="2">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Welcome Admin"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/logout_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Log Out"
+            android:textAlignment="textEnd"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="2">
+
 
         <androidx.cardview.widget.CardView
             android:id="@+id/add_categories"
@@ -29,8 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp"
+                android:padding= "20dp"
                 android:text="Add New Categories"
                 android:textAlignment="center"
                 android:textColor="@color/white"
@@ -52,8 +78,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp"
+                android:padding= "20dp"
                 android:text="Add New Medicines"
                 android:textAlignment="center"
                 android:textColor="@color/white"
@@ -63,6 +88,8 @@
 
 
     </LinearLayout>
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -84,8 +111,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp"
+                android:padding= "20dp"
                 android:text="Edit Categories"
                 android:textAlignment="center"
                 android:textColor="@color/white"
@@ -107,8 +133,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp"
+                android:padding= "20dp"
                 android:text="Edit Medicines"
                 android:textAlignment="center"
                 android:textColor="@color/white"
@@ -139,8 +164,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp"
+                android:padding= "20dp"
                 android:text="New Orders"
                 android:textAlignment="center"
                 android:textColor="@color/white"
@@ -162,9 +186,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp"
                 android:text="Pending Orders"
+                android:padding= "20dp"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="20dp" />
@@ -172,7 +195,11 @@
         </androidx.cardview.widget.CardView>
 
 
+
+
     </LinearLayout>
+
+
 
 
 </LinearLayout>
