@@ -2,7 +2,6 @@ package com.example.onlinemedicalstore;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -30,93 +29,99 @@ import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.util.HashMap;
 
-public class AddNewCategory extends AppCompatActivity {
+public class AddNewMedicine extends AppCompatActivity {
 
-    private ImageView categoryImage;
+    private ImageView medicineImage;
     private Uri imageUri;
     private String checker = "";
-    private Button createCategory;
-    private EditText categoryName;
+    private Button createMedicine;
+    private EditText medicineName, medicineDiscount, medicinePrice, medicineDescription;
     private ProgressDialog loadingBar;
     private StorageTask uploadTask;
     private String myUrl = "";
-    private StorageReference storageCategoryImageRef;
-
+    private StorageReference storageMedicineImageRef;
+    private String categoryId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_new_category);
+        setContentView(R.layout.activity_add_new_medicine);
 
-        storageCategoryImageRef = FirebaseStorage.getInstance().getReference().child("Category pictures");
+        categoryId = getIntent().getStringExtra("categoryId");
 
+        storageMedicineImageRef = FirebaseStorage.getInstance().getReference().child("Medicine pictures");
 
-        categoryImage = (ImageView) findViewById(R.id.category_image);
-        createCategory = (Button) findViewById(R.id.btn_create_category);
-        categoryName = (EditText) findViewById(R.id.category_name);
+        medicineImage = (ImageView) findViewById(R.id.medicine_image);
+        createMedicine = (Button) findViewById(R.id.btn_create_medicine);
+        medicineName = (EditText) findViewById(R.id.medicine_name);
+        medicinePrice = (EditText) findViewById(R.id.medicine_price);
+        medicineDiscount = (EditText) findViewById(R.id.medicine_discount);
+        medicineDescription = (EditText) findViewById(R.id.medicine_description);
         loadingBar = new ProgressDialog(this);
 
-
-        categoryImage.setOnClickListener(new View.OnClickListener() {
+        medicineImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 checker = "clicked";
 
                 CropImage.activity(imageUri)
                         .setAspectRatio(1, 1)
-                        .start(AddNewCategory.this);
+                        .start(AddNewMedicine.this);
             }
         });
 
-        createCategory.setOnClickListener(new View.OnClickListener() {
+        createMedicine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 if (checker.equals("clicked")) {
-                    CreateAccount();
+                    CreateMedicine();
                 } else {
 
-                    Toast.makeText(AddNewCategory.this, "Please Insert Employee Picture.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddNewMedicine.this, "Please Insert Medicine Image.", Toast.LENGTH_SHORT).show();
 
                 }
 
 
             }
         });
-
     }
 
-    private void CreateAccount() {
-        String name = categoryName.getText().toString();
+    private void CreateMedicine() {
+        String name = medicineName.getText().toString();
+        String price = medicinePrice.getText().toString();
+        String description = medicineDescription.getText().toString();
+        String discount = medicineDiscount.getText().toString();
 
+        if (TextUtils.isEmpty(name) && TextUtils.isEmpty(price) && TextUtils.isEmpty(description)) {
 
-        if (TextUtils.isEmpty(name)) {
-
-            Toast.makeText(AddNewCategory.this, "Please category name", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddNewMedicine.this, "Please insert medicine details", Toast.LENGTH_SHORT).show();
         } else {
-         /*   loadingBar.setTitle("Create Account");
+            loadingBar.setTitle("Create Medicine");
             loadingBar.setMessage("Please wait, while we are checking the credentials.");
             loadingBar.setCanceledOnTouchOutside(false);
-            loadingBar.show();*/
+            loadingBar.show();
 
-            ValidatephoneNumber(name);
+            ValidateMedicineName(name, price, description, discount);
 
         }
+
+
     }
 
-    private void ValidatephoneNumber(final String name
+    private void ValidateMedicineName(final String name, final String price, final String description, final String discount
     ) {
 
-        loadingBar = new ProgressDialog(this);
-        loadingBar.setTitle("Update Category");
-        loadingBar.setMessage("Please wait, while we are updating category list");
+        //final ProgressDialog progressDialog = new ProgressDialog(this);
+        loadingBar.setTitle("Update Profile");
+        loadingBar.setMessage("Please wait, while we are updating your account information");
         loadingBar.setCanceledOnTouchOutside(false);
         loadingBar.show();
 
 
         if (imageUri != null) {
 
-            final StorageReference fileRef = storageCategoryImageRef
+            final StorageReference fileRef = storageMedicineImageRef
                     .child(name + ".jpg");
 
             uploadTask = fileRef.putFile(imageUri);
@@ -139,22 +144,25 @@ public class AddNewCategory extends AppCompatActivity {
                                 Uri downloadUrl = task.getResult();
                                 myUrl = downloadUrl.toString();
 
-                                loadingBar.dismiss();
 
                                 final DatabaseReference RootRef1;
-                                RootRef1 = FirebaseDatabase.getInstance().getReference().child("Categories");
+                                RootRef1 = FirebaseDatabase.getInstance().getReference().child("Medicines");
                                 String id = RootRef1.push().getKey();
 
                                 RootRef1.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                                        if (!(dataSnapshot.child("Categories").child(name).exists())) {
+                                        if (!(dataSnapshot.child("Medicines").child(name).exists())) {
 
                                             HashMap<String, Object> userdataMap = new HashMap<>();
                                             userdataMap.put("name", name);
+                                            userdataMap.put("price", price);
+                                            userdataMap.put("discount", discount);
+                                            userdataMap.put("description", description);
                                             userdataMap.put("image", myUrl);
-                                            userdataMap.put("id", id);
+                                            userdataMap.put("categoryId", categoryId);
+                                            userdataMap.put("medicineId", id);
                                             RootRef1.child(id).updateChildren(userdataMap)
                                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                         @Override
@@ -164,45 +172,20 @@ public class AddNewCategory extends AppCompatActivity {
 
                                                                /* HashMap<String, Object> userdataMap = new HashMap<>();
                                                                 userdataMap.put("name", name);
+                                                                userdataMap.put("price", price);
+                                                                userdataMap.put("discount", discount);
+                                                                userdataMap.put("description", description);
                                                                 userdataMap.put("image", myUrl);*/
                                                                 loadingBar.dismiss();
 
 
-
-                                                                /*RootRef1.child("Departments").child(departmentID).child("Employees").child(phone).updateChildren(userdataMap)
-                                                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                                            @Override
-                                                                            public void onComplete(@NonNull Task<Void> task) {
-
-                                                                                if (task.isSuccessful()){
-
-                                                                                    Toast.makeText(AddNewEmployee.this,"Congratulation employ has been created.",Toast.LENGTH_SHORT).show();
-                                                                                    loadingBar.dismiss();
-
-                                                                                    Intent Intent = new Intent(AddNewEmployee.this, AdminHomeActivity.class);
-                                                                                    startActivity(Intent);
-                                                                                    finish();
-                                                                                }
-
-                                                                                else
-                                                                                {
-
-                                                                                    loadingBar.dismiss();
-                                                                                    Toast.makeText(AddNewEmployee.this,"Network Error: Please try again after some time.",Toast.LENGTH_SHORT).show();
-
-                                                                                }
-
-                                                                            }
-                                                                        });*/
-
-
                                                             } else {
 
-                                                                Toast.makeText(AddNewCategory.this, "Try Again", Toast.LENGTH_SHORT).show();
+                                                                Toast.makeText(AddNewMedicine.this, "Try Again", Toast.LENGTH_SHORT).show();
                                                                 loadingBar.dismiss();
                                                                 /*Toast.makeText(AddNewEmployee.this,"Please try again using another phone number",Toast.LENGTH_SHORT).show();
                                                                  */
-                                                                Intent Intent = new Intent(AddNewCategory.this, AddNewCategory.class);
+                                                                Intent Intent = new Intent(AddNewMedicine.this, AddNewMedicine.class);
                                                                 startActivity(Intent);
                                                             }
 
@@ -229,17 +212,20 @@ public class AddNewCategory extends AppCompatActivity {
 
     }
 
-
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
+        if (requestCode== CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE  &&  resultCode==RESULT_OK  &&  data!=null)
+        {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             imageUri = result.getUri();
 
-            categoryImage.setImageURI(imageUri);
-        } else {
+            medicineImage.setImageURI(imageUri);
+        }
+        else
+        {
             Toast.makeText(this, "Error, Try Again.", Toast.LENGTH_SHORT).show();
 
             /*startActivity(new Intent(AddNewCategory.this, AddNewCategory.class));

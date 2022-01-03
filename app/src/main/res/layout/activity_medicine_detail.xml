@@ -55,7 +55,7 @@
                         android:gravity="center"
                         android:padding="5dp"
                         android:src="@drawable/logo"
-                        app:tint="@color/colorPrimary"></ImageView>
+                        ></ImageView>
 
                     <LinearLayout
                         android:layout_width="match_parent"

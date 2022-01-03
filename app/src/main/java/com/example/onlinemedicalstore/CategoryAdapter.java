@@ -7,25 +7,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder>{
     private List<CategoriesModel> categoriesListData;
-    private UserDashboard context;
+    private Context context;
+    private String role;
 
     // RecyclerView recyclerView;
-    public CategoryAdapter(List<CategoriesModel> listdata, UserDashboard userDashboard) {
+    public CategoryAdapter(List<CategoriesModel> listdata, Context userDashboard, String role) {
         this.categoriesListData = listdata;
         this.context = userDashboard;
+        this.role = role;
     }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -47,8 +46,17 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, MedicinesList.class);
-                context.startActivity(intent);
+                if (role == "user"){
+                    Intent intent = new Intent(context, MedicinesList.class);
+                    intent.putExtra("categoryId",myListData.getId());
+                    context.startActivity(intent);
+                }
+              else{
+                    Intent intent = new Intent(context, AddNewMedicine.class);
+                    intent.putExtra("categoryId",myListData.getId());
+                    context.startActivity(intent);
+
+                }
                // Toast.makeText(view.getContext(),"click on item: "+myListData.getDescription(),Toast.LENGTH_LONG).show();
             }
         });

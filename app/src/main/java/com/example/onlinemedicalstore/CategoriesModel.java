@@ -1,14 +1,14 @@
 package com.example.onlinemedicalstore;
 
 public class CategoriesModel {
-    private String name, image, childNumber;
+    private String name, image, id;
 
 
-    public CategoriesModel(String name, String image/*, String childNumber*/) {
+  /*  public CategoriesModel(String name, String image*//*, String childNumber*//*) {
         this.name = name;
         this.image = image;
         //   this.childNumber = childNumber;
-    }
+    }*/
 
     public CategoriesModel() {
     }
@@ -29,7 +29,14 @@ public class CategoriesModel {
         this.image = image;
     }
 
-  /*  public String getAge() {
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+/*  public String getAge() {
         return age;
     }
 

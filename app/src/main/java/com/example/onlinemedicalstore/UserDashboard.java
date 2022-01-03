@@ -52,7 +52,7 @@ public class UserDashboard extends AppCompatActivity {
 
         categoryModels = new ArrayList<>();
 
-        categoryAdapter = new CategoryAdapter((ArrayList<CategoriesModel>) categoryModels, UserDashboard.this);
+        categoryAdapter = new CategoryAdapter((ArrayList<CategoriesModel>) categoryModels, UserDashboard.this, "user");
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this.getApplicationContext(), 3, GridLayoutManager.VERTICAL, false);
 
@@ -77,7 +77,7 @@ public class UserDashboard extends AppCompatActivity {
                 new CategoryModel("Alert", android.R.drawable.ic_dialog_alert),
                 new CategoryModel("Map", android.R.drawable.ic_dialog_map),
         };*/
-        
+
 
     }
 
