@@ -29,7 +29,6 @@ public class ActivitySignup extends AppCompatActivity {
     AlertDialog progressDialog;
     FirebaseAuth maAuth;
     RadioGroup radioGroup;
- //   int checkedRadio;
 //    Spinner edtArea,edtCity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
