@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".CartScreen">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+
+        <!-- <include
+             layout="@layout/full_screen_progress_bar"
+             android:id="@+id/progressbar"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:visibility="gone"
+             />-->
+
+        <LinearLayout
+            android:id="@+id/totalPrice_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="1dp"
+            android:weightSum="3"
+            android:background="@color/colorPrimary"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/total_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Total Price= 0.00"
+                android:textSize="18dp"
+                android:textColor="@color/white"
+                android:layout_weight="1"
+                ></TextView>
+
+            <TextView
+
+                android:id="@+id/delete_cart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Delete Cart"
+                android:textColor="@color/white"
+                android:layout_weight="2"
+                android:gravity="right"
+                android:textSize="18dp"
+                ></TextView>
+
+        </LinearLayout>
+
+        <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+            android:layout_below="@+id/totalPrice_layout"
+            android:id="@+id/progressbar"
+            style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/colorPrimary"
+            app:mpb_progressStyle="horizontal"
+            app:mpb_useIntrinsicPadding="false" />
+
+
+
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/cart_item_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:paddingBottom="50dp"
+            android:layout_below="@+id/totalPrice_layout"
+            >
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <Button
+            android:id="@+id/checkout_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Check out"
+            android:background="@color/colorPrimary"
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            android:layout_alignParentBottom="true"
+            ></Button>
+
+    </RelativeLayout>
+
+</LinearLayout>

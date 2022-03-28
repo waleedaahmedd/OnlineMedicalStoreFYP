@@ -188,20 +188,19 @@
                             android:textSize="18dp"></TextView>
 
 
-                       <!-- <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
+                        <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
                             android:id="@+id/elegant_btn"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="2"
                             android:elevation="6dp"
-                            app:backGroundColor="@color/title_color"
+                            app:backGroundColor="@color/colorPrimary"
                             app:finalNumber="10"
                             app:initialNumber="1"
-                            app:textColor="@color/dark_blue"
+                            app:textColor="@color/white"
                             app:textSize="6dp">
 
                         </com.cepheuen.elegantnumberbutton.view.ElegantNumberButton>
--->
                     </LinearLayout>
 
 

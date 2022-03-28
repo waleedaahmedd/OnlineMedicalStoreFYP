@@ -23,7 +23,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CategoriesList"></activity>
+        <activity
+            android:name=".CartScreen"
+            android:exported="false" />
+        <activity android:name=".CategoriesList" />
         <activity android:name=".AddNewMedicine" />
         <activity android:name=".AddNewCategory" />
         <activity android:name=".MedicineDetail" />
