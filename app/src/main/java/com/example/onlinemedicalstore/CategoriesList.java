@@ -32,7 +32,7 @@ public class CategoriesList extends AppCompatActivity {
         categoryModels = new ArrayList<>();
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.category_list_recyclerView);
 
-        categoryAdapter = new CategoryAdapter((ArrayList<CategoriesModel>) categoryModels, CategoriesList.this, "addMedicine");
+        categoryAdapter = new CategoryAdapter((ArrayList<CategoriesModel>) categoryModels, CategoriesList.this, "Categories");
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this.getApplicationContext(), 3, GridLayoutManager.VERTICAL, false);
 

@@ -26,6 +26,7 @@ import java.util.List;
 public class UserDashboard extends AppCompatActivity {
 
     private LinearLayout logOut;
+    LinearLayout cartButton;
     DatabaseReference categoriesReference;
     ArrayList<CategoriesModel> categoryModels;
     private CategoryAdapter categoryAdapter;
@@ -37,6 +38,15 @@ public class UserDashboard extends AppCompatActivity {
         categoriesReference = FirebaseDatabase.getInstance().getReference("Categories");
 
         logOut = (LinearLayout) findViewById(R.id.logout_btn);
+        cartButton = (LinearLayout) findViewById(R.id.cart_btn);
+
+        cartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent Intent = new Intent(UserDashboard.this, CartScreen.class);
+                startActivity(Intent);
+            }
+        });
 
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -26,33 +26,31 @@
             android:id="@+id/totalPrice_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginTop="1dp"
-            android:weightSum="3"
             android:background="@color/colorPrimary"
-            android:padding="10dp">
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:weightSum="3">
 
             <TextView
                 android:id="@+id/total_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Total Price= 0.00"
-                android:textSize="18dp"
-                android:textColor="@color/white"
                 android:layout_weight="1"
-                ></TextView>
+                android:text="Total Price= 0.00"
+                android:textColor="@color/white"
+                android:textSize="18dp"></TextView>
 
             <TextView
 
                 android:id="@+id/delete_cart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Delete Cart"
-                android:textColor="@color/white"
                 android:layout_weight="2"
                 android:gravity="right"
-                android:textSize="18dp"
-                ></TextView>
+                android:text="Delete Cart"
+                android:textColor="@color/white"
+                android:textSize="18dp"></TextView>
 
         </LinearLayout>
 
@@ -68,18 +66,14 @@
             app:mpb_useIntrinsicPadding="false" />
 
 
-
-
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/cart_item_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@+id/totalPrice_layout"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:paddingBottom="50dp"
-            android:layout_below="@+id/totalPrice_layout"
-            >
+            android:paddingBottom="50dp">
 
         </androidx.recyclerview.widget.RecyclerView>
 
