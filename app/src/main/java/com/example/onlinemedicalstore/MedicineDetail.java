@@ -82,14 +82,14 @@ public class MedicineDetail extends AppCompatActivity {
 
                         if (!(dataSnapshot.child("Carts").child(medicineDetail.getMedicineId()).exists())) {
 
-                            if (dataSnapshot.child("Carts").child(id).child("cartPrice").exists())
+                        /*    if (dataSnapshot.child("Carts").child(id).child("cartPrice").exists())
                             {
                                 cartTotalPrice = Integer.parseInt(dataSnapshot.child("Carts").child(id).child("cartPrice").getValue().toString()) * 2;
                             }
                             else{
                                 cartTotalPrice = 5 * 5;
 
-                            }
+                            }*/
 
                             HashMap<String, Object> cartdataMap = new HashMap<>();
                             cartdataMap.put("medicineId", medicineDetail.getMedicineId());
@@ -101,7 +101,10 @@ public class MedicineDetail extends AppCompatActivity {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
 
-                                            if (task.isSuccessful()) {
+                                            Toast.makeText(MedicineDetail.this, medicineDetail.getName()+" added Successfully", Toast.LENGTH_SHORT).show();
+
+
+                                       /*     if (task.isSuccessful()) {
 
 
                                                 HashMap<String, Object> pricedataMap = new HashMap<>();
@@ -114,14 +117,14 @@ public class MedicineDetail extends AppCompatActivity {
 
                                                                 if (task.isSuccessful()) {
 
-                                                                   /* loadingBar.dismiss();
+                                                                   *//* loadingBar.dismiss();
                                                                     Intent Intent = new Intent(MedicineDetail.this, CartScreen.class);
-                                                                    startActivity(Intent);*/
+                                                                    startActivity(Intent);*//*
                                                                 } else {
                                                                     Toast.makeText(MedicineDetail.this, "Try Again", Toast.LENGTH_SHORT).show();
                                                                     loadingBar.dismiss();
-                                                                    /*Toast.makeText(AddNewEmployee.this,"Please try again using another phone number",Toast.LENGTH_SHORT).show();
-                                                                     */
+                                                                    *//*Toast.makeText(AddNewEmployee.this,"Please try again using another phone number",Toast.LENGTH_SHORT).show();
+                                                                     *//*
 
                                                                 }
 
@@ -135,14 +138,19 @@ public class MedicineDetail extends AppCompatActivity {
                                             } else {
                                                 Toast.makeText(MedicineDetail.this, "Try Again", Toast.LENGTH_SHORT).show();
                                                 loadingBar.dismiss();
-                                                /*Toast.makeText(AddNewEmployee.this,"Please try again using another phone number",Toast.LENGTH_SHORT).show();
-                                                 */
+                                                *//*Toast.makeText(AddNewEmployee.this,"Please try again using another phone number",Toast.LENGTH_SHORT).show();
+                                                 *//*
 
-                                            }
+                                            }*/
 
 
                                         }
                                     });
+                        }
+
+                        else{
+                            Toast.makeText(MedicineDetail.this, "Already Added into cart", Toast.LENGTH_SHORT).show();
+
                         }
 
                     }

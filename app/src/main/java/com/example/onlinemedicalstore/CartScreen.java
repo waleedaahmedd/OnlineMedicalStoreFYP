@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,6 +25,7 @@ public class CartScreen extends AppCompatActivity {
     DatabaseReference cartReference;
     ArrayList<CartModel> cartModels;
     MaterialProgressBar progressbar;
+    FirebaseAuth maAuth;
     private CartAdapter cartAdapter;
 
     @Override
@@ -32,7 +34,9 @@ public class CartScreen extends AppCompatActivity {
         setContentView(R.layout.activity_cart_screen);
 
         progressbar = (MaterialProgressBar) findViewById(R.id.progressbar);
-        cartReference = FirebaseDatabase.getInstance().getReference("Carts").child("7ACHbpbTSvgZMLuW5Qo6XaMWWdn1");
+        maAuth = FirebaseAuth.getInstance();
+
+        cartReference = FirebaseDatabase.getInstance().getReference("Carts").child(maAuth.getUid());
 
         cartModels = new ArrayList<>();
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.cart_item_recyclerview);
@@ -42,7 +46,6 @@ public class CartScreen extends AppCompatActivity {
         recyclerView.setAdapter(cartAdapter);
 
         getCartList();
-
 
     }
 
@@ -60,6 +63,8 @@ public class CartScreen extends AppCompatActivity {
                     cartAdapter.notifyDataSetChanged();
                     progressbar.setVisibility(View.GONE);
                 }
+                progressbar.setVisibility(View.GONE);
+
             }
 
             @Override
