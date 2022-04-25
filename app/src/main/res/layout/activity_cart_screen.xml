@@ -81,12 +81,11 @@
             android:id="@+id/checkout_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Check out"
-            android:background="@color/colorPrimary"
-            android:textSize="20dp"
-            android:textColor="@color/white"
             android:layout_alignParentBottom="true"
-            ></Button>
+            android:background="@color/colorPrimary"
+            android:text="Check out"
+            android:textColor="@color/white"
+            android:textSize="20dp"></Button>
 
     </RelativeLayout>
 

@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,6 +27,7 @@ public class CartScreen extends AppCompatActivity {
     DatabaseReference cartReference;
     ArrayList<CartModel> cartModels;
     MaterialProgressBar progressbar;
+    Button checkBtn;
     FirebaseAuth maAuth;
     private CartAdapter cartAdapter;
 
@@ -35,6 +38,15 @@ public class CartScreen extends AppCompatActivity {
 
         progressbar = (MaterialProgressBar) findViewById(R.id.progressbar);
         maAuth = FirebaseAuth.getInstance();
+        checkBtn = (Button) findViewById(R.id.checkout_btn);
+
+        checkBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CartScreen.this , AddressScreen.class);
+                startActivity(intent);
+            }
+        });
 
         cartReference = FirebaseDatabase.getInstance().getReference("Carts").child(maAuth.getUid());
 

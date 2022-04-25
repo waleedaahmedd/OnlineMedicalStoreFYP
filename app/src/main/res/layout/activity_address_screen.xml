@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".AddressScreen">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+            android:id="@+id/progressbar"
+            style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/colorPrimary"
+            android:visibility="gone"
+            app:mpb_progressStyle="horizontal"
+            app:mpb_useIntrinsicPadding="false" />
+
+        <!--  <include
+              layout="@layout/full_screen_progress_bar"
+              android:id="@+id/progressbar"
+              android:visibility="gone"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              />-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:orientation="vertical"
+            android:paddingLeft="40dp"
+            android:paddingTop="20dp"
+            android:paddingRight="40dp"
+            android:paddingBottom="20dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Deliver To"
+                android:textColor="@color/colorPrimary"
+                android:textSize="30sp"
+                android:transitionName="logo_text" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:text="Where should we deliver it?"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                android:transitionName="logo_desc" />
+
+            <EditText
+                android:id="@+id/receiver_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:hint="Receiver Name"
+                android:inputType="text"
+                android:textColor="@color/colorPrimary"></EditText>
+
+            <EditText
+                android:id="@+id/receiver_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:hint="Receiver Phone Number"
+                android:inputType="text"
+                android:textColor="@color/colorPrimary"></EditText>
+
+            <EditText
+                android:id="@+id/address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:hint="House No"
+                android:inputType="text"
+                android:textColor="@color/colorPrimary"></EditText>
+
+            <EditText
+                android:id="@+id/house_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:hint="Nearby Location"
+                android:inputType="text"
+                android:textColor="@color/colorPrimary"></EditText>
+
+
+
+            <Button
+                android:id="@+id/submit_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="@color/colorPrimary"
+                android:padding="10dp"
+                android:text="Submit"
+                android:textColor="@color/white"
+                android:textSize="20dp"></Button>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</LinearLayout>
