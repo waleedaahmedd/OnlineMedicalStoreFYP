@@ -47,10 +47,11 @@ public class MedicinesList extends AppCompatActivity {
 
     private void getMedicineList() {
 
-        medicineReference.orderByChild("categoryId").equalTo(categoryId).addValueEventListener(new ValueEventListener() {
+        medicineReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
+                    medicinesModel.clear();
                     for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                         MedicinesModel medicineList = snapshot1.getValue(MedicinesModel.class);
                         medicinesModel.add(medicineList);

@@ -98,6 +98,7 @@
         android:weightSum="2">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/edit_categories"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -107,7 +108,6 @@
             app:cardUseCompatPadding="true">
 
             <TextView
-                android:id="@+id/edit_categories"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -120,6 +120,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/edit_medicines"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -129,7 +130,6 @@
             app:cardUseCompatPadding="true">
 
             <TextView
-                android:id="@+id/edit_medicines"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

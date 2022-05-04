@@ -24,7 +24,7 @@ import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 
 public class CartScreen extends AppCompatActivity {
 
-    DatabaseReference cartReference;
+    DatabaseReference cartReference, orderReference;
     ArrayList<CartModel> cartModels;
     MaterialProgressBar progressbar;
     Button checkBtn;
@@ -43,12 +43,14 @@ public class CartScreen extends AppCompatActivity {
         checkBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                moveToOrder(cartReference,orderReference);
                 Intent intent = new Intent(CartScreen.this , AddressScreen.class);
                 startActivity(intent);
             }
         });
 
         cartReference = FirebaseDatabase.getInstance().getReference("Carts").child(maAuth.getUid());
+        orderReference = FirebaseDatabase.getInstance().getReference("Orders");
 
         cartModels = new ArrayList<>();
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.cart_item_recyclerview);
@@ -61,9 +63,34 @@ public class CartScreen extends AppCompatActivity {
 
     }
 
+    private void moveToOrder(final DatabaseReference fromPath, final DatabaseReference toPath) {
+        fromPath.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                toPath.setValue(dataSnapshot.getValue(), new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(DatabaseError firebaseError, DatabaseReference firebase) {
+                        if (firebaseError != null) {
+                            System.out.println("Copy failed");
+                        } else {
+                            System.out.println("Success");
+
+                        }
+                    }
+                });
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     private void getCartList() {
 
-        cartReference.addValueEventListener(new ValueEventListener() {
+        cartReference.child("Medicines").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {

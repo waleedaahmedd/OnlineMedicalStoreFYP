@@ -4,7 +4,8 @@ import java.io.Serializable;
 
 public class MedicinesModel implements Serializable {
 
-    private String medicineId, categoryId, image, description, discount, price, name;
+    private String medicineId, categoryId, image, description, discount, price, name, quantity, unit, manufacturer;
+    private Double oldPrice;
 
 
   /*  public MedicinesModel(String name, String image, String medicineId, String categoryId, String description, String discount, String price) {
@@ -18,6 +19,38 @@ public class MedicinesModel implements Serializable {
     }*/
 
     public MedicinesModel() {
+    }
+
+    public String getManufacturer() {
+        return manufacturer;
+    }
+
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
+    }
+
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    public double getOldPrice() {
+        return oldPrice;
+    }
+
+    public void setOldPrice(double oldPrice) {
+        this.oldPrice = oldPrice;
     }
 
     public String getMedicineId() {

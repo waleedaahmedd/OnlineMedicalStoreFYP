@@ -26,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
+import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.util.HashMap;
@@ -40,7 +41,11 @@ public class AddNewCategory extends AppCompatActivity {
     private ProgressDialog loadingBar;
     private StorageTask uploadTask;
     private String myUrl = "";
+    private DatabaseReference RootRef;
+    private CategoriesModel categoryData;
     private StorageReference storageCategoryImageRef;
+    private String catId;
+    private String comingFrom;
 
 
     @Override
@@ -49,12 +54,20 @@ public class AddNewCategory extends AppCompatActivity {
         setContentView(R.layout.activity_add_new_category);
 
         storageCategoryImageRef = FirebaseStorage.getInstance().getReference().child("Category pictures");
+        RootRef = FirebaseDatabase.getInstance().getReference().child("Categories");
+
+
+        comingFrom = getIntent().getStringExtra("onClick");
 
 
         categoryImage = (ImageView) findViewById(R.id.category_image);
         createCategory = (Button) findViewById(R.id.btn_create_category);
         categoryName = (EditText) findViewById(R.id.category_name);
         loadingBar = new ProgressDialog(this);
+
+        if (!comingFrom.equals("addNewCat")) {
+        getCategoryData();
+        }
 
 
         categoryImage.setOnClickListener(new View.OnClickListener() {
@@ -73,7 +86,7 @@ public class AddNewCategory extends AppCompatActivity {
             public void onClick(View view) {
 
                 if (checker.equals("clicked")) {
-                    CreateAccount();
+                    Validation();
                 } else {
 
                     Toast.makeText(AddNewCategory.this, "Please Insert Employee Picture.", Toast.LENGTH_SHORT).show();
@@ -86,7 +99,36 @@ public class AddNewCategory extends AppCompatActivity {
 
     }
 
-    private void CreateAccount() {
+    private void getCategoryData() {
+        RootRef.child(comingFrom).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    categoryData = snapshot.getValue(CategoriesModel.class);
+
+                    categoryName.setText(categoryData.getName());
+                    Picasso.get()
+                            .load(categoryData.getImage())
+                            .into(categoryImage);
+                    createCategory.setText("Update Category");
+                   /* for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                        CategoriesModel categoriesList = snapshot1.getValue(CategoriesModel.class);
+                        categoryModels.add(categoriesList);
+                    }*/
+
+                  /*  categoryAdapter.notifyDataSetChanged();*/
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getApplicationContext(), "Error->getRequestList--" + error.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
+
+    private void Validation() {
         String name = categoryName.getText().toString();
 
 
@@ -99,12 +141,12 @@ public class AddNewCategory extends AppCompatActivity {
             loadingBar.setCanceledOnTouchOutside(false);
             loadingBar.show();*/
 
-            ValidatephoneNumber(name);
+            CategoryUpdate(name);
 
         }
     }
 
-    private void ValidatephoneNumber(final String name
+    private void CategoryUpdate(final String name
     ) {
 
         loadingBar = new ProgressDialog(this);
@@ -141,11 +183,15 @@ public class AddNewCategory extends AppCompatActivity {
 
                                 loadingBar.dismiss();
 
-                                final DatabaseReference RootRef1;
-                                RootRef1 = FirebaseDatabase.getInstance().getReference().child("Categories");
-                                String id = RootRef1.push().getKey();
+                                if (!comingFrom.equals("addNewCat")) {
+                                    catId = comingFrom;
 
-                                RootRef1.addListenerForSingleValueEvent(new ValueEventListener() {
+                                } else {
+                                    catId = RootRef.push().getKey();
+
+                                }
+
+                                RootRef.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -154,8 +200,8 @@ public class AddNewCategory extends AppCompatActivity {
                                             HashMap<String, Object> userdataMap = new HashMap<>();
                                             userdataMap.put("name", name);
                                             userdataMap.put("image", myUrl);
-                                            userdataMap.put("id", id);
-                                            RootRef1.child(id).updateChildren(userdataMap)
+                                            userdataMap.put("id", catId);
+                                            RootRef.child(catId).updateChildren(userdataMap)
                                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                         @Override
                                                         public void onComplete(@NonNull Task<Void> task) {
@@ -165,7 +211,9 @@ public class AddNewCategory extends AppCompatActivity {
                                                                /* HashMap<String, Object> userdataMap = new HashMap<>();
                                                                 userdataMap.put("name", name);
                                                                 userdataMap.put("image", myUrl);*/
+
                                                                 loadingBar.dismiss();
+                                                                finish();
 
 
 

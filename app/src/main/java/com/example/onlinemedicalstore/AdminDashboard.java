@@ -12,7 +12,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class AdminDashboard extends AppCompatActivity {
 
-    CardView addCategory, addMedicines;
+    CardView addCategory, addMedicines, editCategory, editMedicine;
     private TextView logOut;
 
 
@@ -36,23 +36,45 @@ public class AdminDashboard extends AppCompatActivity {
         });
 
         addCategory = (CardView) findViewById(R.id.add_categories);
+        editCategory = (CardView) findViewById(R.id.edit_categories);
+        addMedicines = (CardView) findViewById(R.id.add_medicines);
+        editMedicine = (CardView) findViewById(R.id.edit_medicines);
+
+
 
         addCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AdminDashboard.this, AddNewCategory.class);
-                //intent.putExtra("Did", model.getDname());
+                intent.putExtra("onClick", "addNewCat");
                 startActivity(intent);
             }
         });
 
-        addMedicines = (CardView) findViewById(R.id.add_medicines);
+        editCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AdminDashboard.this, CategoriesList.class);
+                intent.putExtra("onClick", "updateCat");
+                startActivity(intent);
+            }
+        });
+
 
         addMedicines.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AdminDashboard.this, CategoriesList.class);
-                //intent.putExtra("Did", model.getDname());
+                intent.putExtra("onClick", "addNewMed");
+                startActivity(intent);
+            }
+        });
+
+        editMedicine.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AdminDashboard.this, MedicinesList.class);
+                intent.putExtra("onClick", "updateMed");
                 startActivity(intent);
             }
         });

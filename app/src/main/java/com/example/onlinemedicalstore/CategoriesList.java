@@ -18,9 +18,10 @@ import java.util.ArrayList;
 
 public class CategoriesList extends AppCompatActivity {
 
-    DatabaseReference categoriesReference;
-    ArrayList<CategoriesModel> categoryModels;
+    private DatabaseReference categoriesReference;
+    private ArrayList<CategoriesModel> categoryModels;
     private CategoryAdapter categoryAdapter;
+    private String  comingFrom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +29,12 @@ public class CategoriesList extends AppCompatActivity {
         setContentView(R.layout.activity_categories_list);
         categoriesReference = FirebaseDatabase.getInstance().getReference("Categories");
 
+        comingFrom = getIntent().getStringExtra("onClick");
 
         categoryModels = new ArrayList<>();
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.category_list_recyclerView);
 
-        categoryAdapter = new CategoryAdapter((ArrayList<CategoriesModel>) categoryModels, CategoriesList.this, "Categories");
+        categoryAdapter = new CategoryAdapter((ArrayList<CategoriesModel>) categoryModels, CategoriesList.this, "Categories", comingFrom);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this.getApplicationContext(), 3, GridLayoutManager.VERTICAL, false);
 
@@ -51,6 +53,7 @@ public class CategoriesList extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
+                    categoryModels.clear();
                     for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                         CategoriesModel categoriesList = snapshot1.getValue(CategoriesModel.class);
                         categoryModels.add(categoriesList);

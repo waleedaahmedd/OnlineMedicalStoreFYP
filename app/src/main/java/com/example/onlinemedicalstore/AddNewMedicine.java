@@ -35,7 +35,7 @@ public class AddNewMedicine extends AppCompatActivity {
     private Uri imageUri;
     private String checker = "";
     private Button createMedicine;
-    private EditText medicineName, medicineDiscount, medicinePrice, medicineDescription;
+    private EditText medicineName, medicineDiscount, medicinePrice, medicineDescription, medicineQuantity, medicineUnit, medicineManufacturer;
     private ProgressDialog loadingBar;
     private StorageTask uploadTask;
     private String myUrl = "";
@@ -57,6 +57,10 @@ public class AddNewMedicine extends AppCompatActivity {
         medicinePrice = (EditText) findViewById(R.id.medicine_price);
         medicineDiscount = (EditText) findViewById(R.id.medicine_discount);
         medicineDescription = (EditText) findViewById(R.id.medicine_description);
+        medicineQuantity = (EditText) findViewById(R.id.medicine_quantity);
+        medicineUnit = (EditText) findViewById(R.id.medicine_Unit);
+        medicineManufacturer = (EditText) findViewById(R.id.medicine_manufacturer);
+
         loadingBar = new ProgressDialog(this);
 
         medicineImage.setOnClickListener(new View.OnClickListener() {
@@ -92,8 +96,18 @@ public class AddNewMedicine extends AppCompatActivity {
         String price = medicinePrice.getText().toString();
         String description = medicineDescription.getText().toString();
         String discount = medicineDiscount.getText().toString();
+        String quantity = medicineQuantity.getText().toString();
+        String unit = medicineUnit.getText().toString();
+        String manufacturer = medicineManufacturer.getText().toString();
+        double oldPrice = 0.0;
+        if (TextUtils.isEmpty(discount)) {
 
-        if (TextUtils.isEmpty(name) && TextUtils.isEmpty(price) && TextUtils.isEmpty(description)) {
+        } else {
+            oldPrice = Double.parseDouble(price);
+            price = String.valueOf(Double.parseDouble(price) - (Double.parseDouble(price) * Double.parseDouble(discount) / 100) );
+        }
+
+        if (TextUtils.isEmpty(name) && TextUtils.isEmpty(price) && TextUtils.isEmpty(description) && TextUtils.isEmpty(quantity) && TextUtils.isEmpty(unit) && TextUtils.isEmpty(manufacturer)) {
 
             Toast.makeText(AddNewMedicine.this, "Please insert medicine details", Toast.LENGTH_SHORT).show();
         } else {
@@ -102,15 +116,15 @@ public class AddNewMedicine extends AppCompatActivity {
             loadingBar.setCanceledOnTouchOutside(false);
             loadingBar.show();
 
-            ValidateMedicineName(name, price, description, discount);
+            ValidateMedicineName(name, price, description, discount, oldPrice, quantity , unit, manufacturer);
 
         }
 
 
     }
 
-    private void ValidateMedicineName(final String name, final String price, final String description, final String discount
-    ) {
+    private void ValidateMedicineName(final String name, final String price, final String description, final String discount, final Double oldPrice,
+                                      String quantity, String unit, String manufacturer) {
 
         //final ProgressDialog progressDialog = new ProgressDialog(this);
         loadingBar.setTitle("Update Profile");
@@ -161,8 +175,13 @@ public class AddNewMedicine extends AppCompatActivity {
                                             userdataMap.put("discount", discount);
                                             userdataMap.put("description", description);
                                             userdataMap.put("image", myUrl);
+                                            userdataMap.put("oldPrice", oldPrice);
                                             userdataMap.put("categoryId", categoryId);
                                             userdataMap.put("medicineId", id);
+                                            userdataMap.put("unit", unit);
+                                            userdataMap.put("quantity", quantity);
+                                            userdataMap.put("manufacturer", manufacturer);
+
                                             RootRef1.child(id).updateChildren(userdataMap)
                                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                         @Override
@@ -177,6 +196,7 @@ public class AddNewMedicine extends AppCompatActivity {
                                                                 userdataMap.put("description", description);
                                                                 userdataMap.put("image", myUrl);*/
                                                                 loadingBar.dismiss();
+                                                                finish();
 
 
                                                             } else {
@@ -213,19 +233,15 @@ public class AddNewMedicine extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode== CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE  &&  resultCode==RESULT_OK  &&  data!=null)
-        {
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             imageUri = result.getUri();
 
             medicineImage.setImageURI(imageUri);
-        }
-        else
-        {
+        } else {
             Toast.makeText(this, "Error, Try Again.", Toast.LENGTH_SHORT).show();
 
             /*startActivity(new Intent(AddNewCategory.this, AddNewCategory.class));

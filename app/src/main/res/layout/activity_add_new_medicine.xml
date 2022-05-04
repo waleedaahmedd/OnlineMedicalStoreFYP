@@ -58,7 +58,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
-            android:hint="Insert Medicine Discount (Optional)"
+            android:hint="Insert Medicine Discount % (Optional)"
             android:inputType="number"
             android:padding="10dp"
             android:textColor="@color/black"
@@ -78,6 +78,46 @@
             android:textColor="@color/black"
             android:textSize="17sp"
             android:textStyle="bold"></EditText>
+        <EditText
+            android:id="@+id/medicine_quantity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:hint="Insert Medicine Quantity"
+            android:inputType="text"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            android:textStyle="bold"></EditText>
+        <EditText
+            android:id="@+id/medicine_Unit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:hint="Insert Medicine Unit"
+            android:inputType="text"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            android:textStyle="bold"></EditText>
+        <EditText
+            android:id="@+id/medicine_manufacturer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:hint="Insert Medicine Manufacturer"
+            android:inputType="text"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            android:textStyle="bold"></EditText>
+
 
         <Button
             android:id="@+id/btn_create_medicine"

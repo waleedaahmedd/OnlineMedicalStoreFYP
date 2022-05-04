@@ -19,12 +19,15 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     private List<CategoriesModel> categoriesListData;
     private Context context;
     private String role;
+    private String comingFrom;
+
 
     // RecyclerView recyclerView;
-    public CategoryAdapter(List<CategoriesModel> listdata, Context userDashboard, String role) {
+    public CategoryAdapter(List<CategoriesModel> listdata, Context userDashboard, String role, String comingFrom) {
         this.categoriesListData = listdata;
         this.context = userDashboard;
         this.role = role;
+        this.comingFrom = comingFrom;
     }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -51,11 +54,17 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                     intent.putExtra("categoryId",myListData.getId());
                     context.startActivity(intent);
                 }
+              else if (comingFrom.equals("updateCat")){
+
+                    Intent intent = new Intent(context, AddNewCategory.class);
+                    intent.putExtra("onClick",myListData.getId());
+                    context.startActivity(intent);
+
+                }
               else{
                     Intent intent = new Intent(context, AddNewMedicine.class);
                     intent.putExtra("categoryId",myListData.getId());
                     context.startActivity(intent);
-
                 }
                // Toast.makeText(view.getContext(),"click on item: "+myListData.getDescription(),Toast.LENGTH_LONG).show();
             }

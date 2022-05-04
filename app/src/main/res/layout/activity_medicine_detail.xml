@@ -103,6 +103,7 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:layout_marginBottom="20dp"
                         android:orientation="horizontal">
 
                         <TextView
@@ -144,7 +145,7 @@
                         android:id="@+id/price_discount"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="20dp"
                         android:orientation="horizontal"
                         android:weightSum="2">
 
@@ -159,13 +160,13 @@
                             android:textSize="14dp"></TextView>
 
                         <TextView
-                            android:id="@+id/detail_oldprice"
+                            android:id="@+id/detail_oldPrice"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="old price "
                             android:gravity="right"
-                            android:textColor="@color/purple_200"
+                            android:textColor="@color/grey"
                             android:textSize="14dp"></TextView>
                     </LinearLayout>
 
@@ -203,14 +204,20 @@
                         </com.cepheuen.elegantnumberbutton.view.ElegantNumberButton>
                     </LinearLayout>
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="Description "
+                        android:textColor="@color/black"
+                        android:textSize="18dp"></TextView>
+
 
                     <ScrollView
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
                         >
-
-
-                        <TextView
+                  <TextView
                             android:id="@+id/detail_description"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

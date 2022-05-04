@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -24,6 +25,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 import java.util.HashMap;
 
 public class MedicineDetail extends AppCompatActivity {
@@ -31,7 +34,8 @@ public class MedicineDetail extends AppCompatActivity {
     private MedicinesModel medicineDetail;
     private ImageView image;
     private Button addToCart;
-    private TextView name , price, description, discount;
+    private LinearLayout discountDetail;
+    private TextView name , price, description, discount, oldPrice, quantity, unit, manufacturer;
     private ProgressDialog loadingBar;
     FirebaseAuth maAuth;
     private ElegantNumberButton qtyButton;
@@ -50,19 +54,34 @@ public class MedicineDetail extends AppCompatActivity {
         name = (TextView) findViewById(R.id.detail_title);
         description = (TextView) findViewById(R.id.detail_description);
         price = (TextView) findViewById(R.id.detail_newprice);
+        oldPrice = (TextView) findViewById(R.id.detail_oldPrice);
         discount = (TextView) findViewById(R.id.detail_dicount);
+        quantity = (TextView) findViewById(R.id.detail_qty);
+        unit = (TextView) findViewById(R.id.detail_unit);
+        manufacturer = (TextView) findViewById(R.id.detail_manufacture);
+
         image = (ImageView) findViewById(R.id.detail_image);
+        discountDetail = (LinearLayout) findViewById(R.id.price_discount);
         addToCart = (Button) findViewById(R.id.add_to_cart);
         loadingBar = new ProgressDialog(this);
         maAuth = FirebaseAuth.getInstance();
         qtyButton = (ElegantNumberButton) findViewById(R.id.elegant_btn);
 
+        if (medicineDetail.getDiscount().equals(""))
+        {
+            discountDetail.setVisibility(View.GONE);
+        }
+
 
 
         name.setText(medicineDetail.getName());
-        discount.setText(medicineDetail.getDiscount());
+        discount.setText("Discount: "+medicineDetail.getDiscount()+"%");
         description.setText(medicineDetail.getDescription());
-        price.setText(medicineDetail.getPrice());
+        price.setText("Rs " +medicineDetail.getPrice());
+        quantity.setText(medicineDetail.getQuantity());
+        unit.setText(medicineDetail.getUnit());
+        manufacturer.setText("(By "+medicineDetail.getManufacturer()+")");
+        oldPrice.setText((Html.fromHtml("<strike>" + "Rs "+medicineDetail.getOldPrice() + "</strike>")));
         Picasso.get()
                 .load(medicineDetail.getImage())
                 .into(image);
@@ -93,10 +112,12 @@ public class MedicineDetail extends AppCompatActivity {
 
                             HashMap<String, Object> cartdataMap = new HashMap<>();
                             cartdataMap.put("medicineId", medicineDetail.getMedicineId());
-                           // userdataMap.put("userId", maAuth.getCurrentUser().getUid());
+                            cartdataMap.put("name", medicineDetail.getName());
+                            cartdataMap.put("discount", medicineDetail.getDiscount());
+                            cartdataMap.put("image", medicineDetail.getImage());
                             cartdataMap.put("quantity", qtyButton.getNumber());
                             cartdataMap.put("price", totalPrice);
-                            RootRef1.child(id).child(medicineDetail.getMedicineId()).updateChildren(cartdataMap)
+                            RootRef1.child(id).child("Medicines").child(medicineDetail.getMedicineId()).updateChildren(cartdataMap)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
