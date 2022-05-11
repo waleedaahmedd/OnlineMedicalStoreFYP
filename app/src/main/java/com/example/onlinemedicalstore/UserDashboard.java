@@ -25,10 +25,9 @@ import java.util.List;
 
 public class UserDashboard extends AppCompatActivity {
 
-    private LinearLayout logOut;
-    LinearLayout cartButton;
-    DatabaseReference categoriesReference;
-    ArrayList<CategoriesModel> categoryModels;
+    private  LinearLayout cartButton, supportButton, orderButton, logOut;
+    private DatabaseReference categoriesReference;
+    private ArrayList<CategoriesModel> categoryModels;
     private CategoryAdapter categoryAdapter;
 
     @Override
@@ -39,6 +38,24 @@ public class UserDashboard extends AppCompatActivity {
 
         logOut = (LinearLayout) findViewById(R.id.logout_btn);
         cartButton = (LinearLayout) findViewById(R.id.cart_btn);
+        supportButton = (LinearLayout) findViewById(R.id.sup_btn);
+        orderButton = (LinearLayout) findViewById(R.id.order_btn);
+
+        orderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent Intent = new Intent(UserDashboard.this, OrderScreen.class);
+                startActivity(Intent);
+            }
+        });
+
+        supportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent Intent = new Intent(UserDashboard.this, SupportScreen.class);
+                startActivity(Intent);
+            }
+        });
 
         cartButton.setOnClickListener(new View.OnClickListener() {
             @Override

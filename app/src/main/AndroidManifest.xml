@@ -24,6 +24,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".OrderDetailScreen"
+            android:exported="false" />
+        <activity
+            android:name=".OrderScreen"
+            android:exported="false" />
+        <activity
+            android:name=".SupportScreen"
+            android:exported="false" />
+        <activity
             android:name=".AddressScreen"
             android:exported="false" />
         <activity

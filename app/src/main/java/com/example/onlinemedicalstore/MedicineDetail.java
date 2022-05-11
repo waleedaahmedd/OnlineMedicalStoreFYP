@@ -99,24 +99,27 @@ public class MedicineDetail extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                        if (!(dataSnapshot.child("Carts").child(medicineDetail.getMedicineId()).exists())) {
+                        if (!(dataSnapshot.child(id).child("Medicines").hasChild(medicineDetail.getMedicineId()))) {
 
-                        /*    if (dataSnapshot.child("Carts").child(id).child("cartPrice").exists())
+                            if (dataSnapshot.child(id).hasChild("cartPrice"))
                             {
-                                cartTotalPrice = Integer.parseInt(dataSnapshot.child("Carts").child(id).child("cartPrice").getValue().toString()) * 2;
+                                cartTotalPrice = Integer.parseInt(dataSnapshot.child(id).child("cartPrice").getValue().toString()) + totalPrice;
                             }
                             else{
-                                cartTotalPrice = 5 * 5;
+                                cartTotalPrice = totalPrice;
 
-                            }*/
+                            }
 
                             HashMap<String, Object> cartdataMap = new HashMap<>();
                             cartdataMap.put("medicineId", medicineDetail.getMedicineId());
                             cartdataMap.put("name", medicineDetail.getName());
                             cartdataMap.put("discount", medicineDetail.getDiscount());
+                            cartdataMap.put("quantity", medicineDetail.getQuantity());
                             cartdataMap.put("image", medicineDetail.getImage());
-                            cartdataMap.put("quantity", qtyButton.getNumber());
+                            cartdataMap.put("itemQuantity", qtyButton.getNumber());
+                            cartdataMap.put("unit", medicineDetail.getUnit());
                             cartdataMap.put("price", totalPrice);
+                            cartdataMap.put("originalPrice", medicineDetail.getPrice());
                             RootRef1.child(id).child("Medicines").child(medicineDetail.getMedicineId()).updateChildren(cartdataMap)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
@@ -125,7 +128,7 @@ public class MedicineDetail extends AppCompatActivity {
                                             Toast.makeText(MedicineDetail.this, medicineDetail.getName()+" added Successfully", Toast.LENGTH_SHORT).show();
 
 
-                                       /*     if (task.isSuccessful()) {
+                                            if (task.isSuccessful()) {
 
 
                                                 HashMap<String, Object> pricedataMap = new HashMap<>();
@@ -138,31 +141,31 @@ public class MedicineDetail extends AppCompatActivity {
 
                                                                 if (task.isSuccessful()) {
 
-                                                                   *//* loadingBar.dismiss();
+                                                                    loadingBar.dismiss();
                                                                     Intent Intent = new Intent(MedicineDetail.this, CartScreen.class);
-                                                                    startActivity(Intent);*//*
+                                                                    startActivity(Intent);
                                                                 } else {
                                                                     Toast.makeText(MedicineDetail.this, "Try Again", Toast.LENGTH_SHORT).show();
                                                                     loadingBar.dismiss();
-                                                                    *//*Toast.makeText(AddNewEmployee.this,"Please try again using another phone number",Toast.LENGTH_SHORT).show();
-                                                                     *//*
+                                                                  //  Toast.makeText(AddNewEmployee.this,"Please try again using another phone number",Toast.LENGTH_SHORT).show();
+
 
                                                                 }
 
 
                                                             }
                                                         });
-
+/*
                                                 loadingBar.dismiss();
                                                 Intent Intent = new Intent(MedicineDetail.this, CartScreen.class);
-                                                startActivity(Intent);
+                                                startActivity(Intent);*/
                                             } else {
                                                 Toast.makeText(MedicineDetail.this, "Try Again", Toast.LENGTH_SHORT).show();
                                                 loadingBar.dismiss();
-                                                *//*Toast.makeText(AddNewEmployee.this,"Please try again using another phone number",Toast.LENGTH_SHORT).show();
-                                                 *//*
+                                               // Toast.makeText(AddNewEmployee.this,"Please try again using another phone number",Toast.LENGTH_SHORT).show();
 
-                                            }*/
+
+                                            }
 
 
                                         }
