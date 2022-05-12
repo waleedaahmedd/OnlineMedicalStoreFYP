@@ -112,7 +112,7 @@ public class CartScreen extends AppCompatActivity {
                         CartMedicineModel cartList = snapshot1.getValue(CartMedicineModel.class);
                         cartMedicineModels.add(cartList);
                     }
-
+//
                     cartAdapter = new CartAdapter(cartMedicineModels, CartScreen.this, cartModel);
                     recyclerView.setHasFixedSize(true);
                     recyclerView.setLayoutManager(new LinearLayoutManager(CartScreen.this));
