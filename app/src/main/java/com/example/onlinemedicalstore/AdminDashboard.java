@@ -12,7 +12,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class AdminDashboard extends AppCompatActivity {
 
-    CardView addCategory, addMedicines, editCategory, editMedicine;
+    CardView addCategory, addMedicines, editCategory, editMedicine, pendingOrders, completedOrders;
     private TextView logOut;
 
 
@@ -39,6 +39,9 @@ public class AdminDashboard extends AppCompatActivity {
         editCategory = (CardView) findViewById(R.id.edit_categories);
         addMedicines = (CardView) findViewById(R.id.add_medicines);
         editMedicine = (CardView) findViewById(R.id.edit_medicines);
+        pendingOrders = (CardView) findViewById(R.id.pending_orders);
+        completedOrders = (CardView) findViewById(R.id.completed_orders);
+
 
 
 
@@ -75,6 +78,23 @@ public class AdminDashboard extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(AdminDashboard.this, MedicinesList.class);
                 intent.putExtra("onClick", "updateMed");
+                startActivity(intent);
+            }
+        });
+
+        pendingOrders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent Intent = new Intent(AdminDashboard.this, OrderScreen.class);
+                startActivity(Intent);
+            }
+        });
+
+        completedOrders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AdminDashboard.this, OrderScreen.class);
+                intent.putExtra("onClick", "completed");
                 startActivity(intent);
             }
         });

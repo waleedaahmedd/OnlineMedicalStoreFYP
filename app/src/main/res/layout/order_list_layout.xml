@@ -37,12 +37,13 @@
                 android:id="@+id/status_ref_Number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Ref_No"
                 android:gravity="right"
-                android:textStyle="bold"
+                android:text="Ref_No"
                 android:textAllCaps="true"
                 android:textColor="@color/colorPrimary"
-                android:textSize="15sp"></TextView>
+                android:textSize="15sp"
+                android:textStyle="bold"></TextView>
+
 
         </RelativeLayout>
 
@@ -65,9 +66,9 @@
             android:id="@+id/status_created_at"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
             android:gravity="right"
-            android:text="Created at" />
+            android:text="Created at"
+            android:textColor="@color/black" />
 
     </RelativeLayout>
 
@@ -121,6 +122,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/status_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/price_layout"
@@ -138,13 +140,34 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
-            android:textColor="@color/black"
-            android:text="status" />
+            android:text="status"
+            android:textColor="@color/black" />
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/status_layout"
+        >
+
+        <Button
+            android:id="@+id/btn_delivered"
+            android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_height="wrap_content"
+            android:text="Delivered"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/white"/>
+    </RelativeLayout>
+
+
+
 
     </RelativeLayout>
+
 
 
 </androidx.cardview.widget.CardView>

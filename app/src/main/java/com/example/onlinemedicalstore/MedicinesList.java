@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -16,12 +18,17 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
+
 public class MedicinesList extends AppCompatActivity {
 
-    DatabaseReference medicineReference;
-    ArrayList<MedicinesModel> medicinesModel;
+    private DatabaseReference medicineReference;
+    private ArrayList<MedicinesModel> medicinesModel;
     private MedicineAdapter medicineAdapter;
     private String categoryId;
+    private MaterialProgressBar progressbar;
+    private TextView emptyText;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +36,8 @@ public class MedicinesList extends AppCompatActivity {
         setContentView(R.layout.activity_medicines_list);
 
         categoryId = getIntent().getStringExtra("categoryId");
+        progressbar = (MaterialProgressBar) findViewById(R.id.progressbar);
+        emptyText = (TextView) findViewById(R.id.empty_tag);
 
 
         medicineReference = FirebaseDatabase.getInstance().getReference("Medicines");
@@ -47,7 +56,7 @@ public class MedicinesList extends AppCompatActivity {
 
     private void getMedicineList() {
 
-        medicineReference.addValueEventListener(new ValueEventListener() {
+        medicineReference.orderByChild("categoryId").equalTo(categoryId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
@@ -60,6 +69,10 @@ public class MedicinesList extends AppCompatActivity {
                     }
 
                     medicineAdapter.notifyDataSetChanged();
+                    progressbar.setVisibility(View.GONE);
+                } else {
+                    progressbar.setVisibility(View.GONE);
+                    emptyText.setVisibility(View.VISIBLE);
                 }
             }
 

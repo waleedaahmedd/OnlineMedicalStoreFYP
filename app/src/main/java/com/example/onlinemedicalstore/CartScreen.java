@@ -27,15 +27,17 @@ import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 
 public class CartScreen extends AppCompatActivity {
 
-    DatabaseReference cartReference, orderReference;
-    ArrayList<CartMedicineModel> cartMedicineModels;
-    CartModel cartModel;
-    TextView totalCartPrice;
-    MaterialProgressBar progressbar;
-    Button checkBtn;
-    FirebaseAuth maAuth;
-    RecyclerView recyclerView;
+    private DatabaseReference cartReference;
+    private ArrayList<CartMedicineModel> cartMedicineModels;
+    private CartModel cartModel;
+    private TextView totalCartPrice;
+    private MaterialProgressBar progressbar;
+    private Button checkBtn;
+    private FirebaseAuth maAuth;
+    private RecyclerView recyclerView;
     private CartAdapter cartAdapter;
+    private TextView emptyText;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,57 +47,28 @@ public class CartScreen extends AppCompatActivity {
         progressbar = (MaterialProgressBar) findViewById(R.id.progressbar);
         maAuth = FirebaseAuth.getInstance();
         checkBtn = (Button) findViewById(R.id.checkout_btn);
-        totalCartPrice  = (TextView) findViewById(R.id.total_price);
+        totalCartPrice = (TextView) findViewById(R.id.total_price);
+        emptyText = (TextView) findViewById(R.id.empty_tag);
 
 
         checkBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                moveToOrder(cartReference,orderReference);
-                Intent intent = new Intent(CartScreen.this , AddressScreen.class);
+                Intent intent = new Intent(CartScreen.this, AddressScreen.class);
                 startActivity(intent);
             }
         });
 
         cartReference = FirebaseDatabase.getInstance().getReference("Carts");
-        orderReference = FirebaseDatabase.getInstance().getReference("Orders").child(maAuth.getUid());
 
         cartMedicineModels = new ArrayList<>();
-    recyclerView = (RecyclerView) findViewById(R.id.cart_item_recyclerview);
-
+        recyclerView = (RecyclerView) findViewById(R.id.cart_item_recyclerview);
 
 
         getCartList();
 
 
-
     }
-
-    private void moveToOrder(final DatabaseReference fromPath, final DatabaseReference toPath) {
-        fromPath.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                toPath.setValue(dataSnapshot.getValue(), new DatabaseReference.CompletionListener() {
-                    @Override
-                    public void onComplete(DatabaseError firebaseError, DatabaseReference firebase) {
-                        if (firebaseError != null) {
-                            System.out.println("Copy failed");
-                        } else {
-                            System.out.println("Success");
-
-                        }
-                    }
-                });
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-
 
 
     private void getCartList() {
@@ -105,7 +78,7 @@ public class CartScreen extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     cartModel = snapshot.getValue(CartModel.class);
-                    totalCartPrice.setText("Total Price: Rs "+String.valueOf(cartModel.getCartPrice()));
+                    totalCartPrice.setText("Total Price: Rs " + String.valueOf(cartModel.getCartPrice()));
 
                     cartMedicineModels.clear();
                     for (DataSnapshot snapshot1 : snapshot.child("Medicines").getChildren()) {
@@ -120,8 +93,12 @@ public class CartScreen extends AppCompatActivity {
 
                     cartAdapter.notifyDataSetChanged();
                     progressbar.setVisibility(View.GONE);
+
+                } else {
+                    emptyText.setVisibility(View.VISIBLE);
+                    progressbar.setVisibility(View.GONE);
+
                 }
-                progressbar.setVisibility(View.GONE);
 
             }
 

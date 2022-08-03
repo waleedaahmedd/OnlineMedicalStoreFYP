@@ -23,12 +23,16 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
+
 public class UserDashboard extends AppCompatActivity {
 
     private  LinearLayout cartButton, supportButton, orderButton, logOut;
     private DatabaseReference categoriesReference;
     private ArrayList<CategoriesModel> categoryModels;
     private CategoryAdapter categoryAdapter;
+    private MaterialProgressBar progressbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,8 @@ public class UserDashboard extends AppCompatActivity {
         cartButton = (LinearLayout) findViewById(R.id.cart_btn);
         supportButton = (LinearLayout) findViewById(R.id.sup_btn);
         orderButton = (LinearLayout) findViewById(R.id.order_btn);
+        progressbar = (MaterialProgressBar) findViewById(R.id.progressbar);
+
 
         orderButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,6 +128,7 @@ public class UserDashboard extends AppCompatActivity {
                     }
 
                     categoryAdapter.notifyDataSetChanged();
+                    progressbar.setVisibility(View.GONE);
                 }
             }
 

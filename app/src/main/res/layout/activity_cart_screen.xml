@@ -54,6 +54,7 @@
 
         </LinearLayout>
 
+
         <me.zhanghai.android.materialprogressbar.MaterialProgressBar
             android:layout_below="@+id/totalPrice_layout"
             android:id="@+id/progressbar"
@@ -64,6 +65,15 @@
             android:indeterminateTint="@color/colorPrimary"
             app:mpb_progressStyle="horizontal"
             app:mpb_useIntrinsicPadding="false" />
+
+        <TextView
+            android:id="@+id/empty_tag"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="19sp"
+            android:visibility="gone"
+            android:text="Cart is Empty"></TextView>
 
 
         <androidx.recyclerview.widget.RecyclerView

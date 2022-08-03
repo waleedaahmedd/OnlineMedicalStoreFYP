@@ -110,17 +110,17 @@ public class MedicineDetail extends AppCompatActivity {
 
                             }
 
-                            HashMap<String, Object> cartdataMap = new HashMap<>();
-                            cartdataMap.put("medicineId", medicineDetail.getMedicineId());
-                            cartdataMap.put("name", medicineDetail.getName());
-                            cartdataMap.put("discount", medicineDetail.getDiscount());
-                            cartdataMap.put("quantity", medicineDetail.getQuantity());
-                            cartdataMap.put("image", medicineDetail.getImage());
-                            cartdataMap.put("itemQuantity", qtyButton.getNumber());
-                            cartdataMap.put("unit", medicineDetail.getUnit());
-                            cartdataMap.put("price", totalPrice);
-                            cartdataMap.put("originalPrice", medicineDetail.getPrice());
-                            RootRef1.child(id).child("Medicines").child(medicineDetail.getMedicineId()).updateChildren(cartdataMap)
+                            HashMap<String, Object> cartDataMap = new HashMap<>();
+                            cartDataMap.put("medicineId", medicineDetail.getMedicineId());
+                            cartDataMap.put("name", medicineDetail.getName());
+                            cartDataMap.put("discount", medicineDetail.getDiscount());
+                            cartDataMap.put("quantity", medicineDetail.getQuantity());
+                            cartDataMap.put("image", medicineDetail.getImage());
+                            cartDataMap.put("itemQuantity", qtyButton.getNumber());
+                            cartDataMap.put("unit", medicineDetail.getUnit());
+                            cartDataMap.put("price", totalPrice);
+                            cartDataMap.put("originalPrice", medicineDetail.getPrice());
+                            RootRef1.child(id).child("Medicines").child(medicineDetail.getMedicineId()).updateChildren(cartDataMap)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
