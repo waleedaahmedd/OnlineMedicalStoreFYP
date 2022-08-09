@@ -43,9 +43,9 @@
 
         <TextView
             android:id="@+id/rec_name"
-            android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:text="Receiver Name"></TextView>
 
     </RelativeLayout>
@@ -63,9 +63,9 @@
 
         <TextView
             android:id="@+id/rec_telnumber"
-            android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:text="Telephone Number"></TextView>
 
     </RelativeLayout>
@@ -83,9 +83,9 @@
 
         <TextView
             android:id="@+id/rec_address"
-            android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:text="Address"></TextView>
 
     </RelativeLayout>
@@ -103,9 +103,9 @@
 
         <TextView
             android:id="@+id/rec_nearby"
-            android:layout_alignParentRight="true"
-            android:layout_width="150dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:text="Nearby Location"></TextView>
 
     </RelativeLayout>

@@ -54,7 +54,7 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.cepheuen.elegant-number-button:lib:1.0.2'
     implementation 'me.zhanghai.android.materialprogressbar:library:1.6.1'
-
+    implementation 'com.synnapps:carouselview:0.1.4'
 
 
 }

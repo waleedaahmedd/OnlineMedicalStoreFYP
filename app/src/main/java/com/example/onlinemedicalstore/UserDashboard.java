@@ -2,7 +2,9 @@ package com.example.onlinemedicalstore;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +21,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.synnapps.carouselview.CarouselView;
+import com.synnapps.carouselview.ImageListener;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +37,10 @@ public class UserDashboard extends AppCompatActivity {
     private ArrayList<CategoriesModel> categoryModels;
     private CategoryAdapter categoryAdapter;
     private MaterialProgressBar progressbar;
+    CarouselView carouselView;
+    int[] sampleImages = {R.drawable.image_1, R.drawable.image_2, R.drawable.image_3, R.drawable.image_4, R.drawable.image_5};
+
+
 
 
     @Override
@@ -46,6 +55,17 @@ public class UserDashboard extends AppCompatActivity {
         orderButton = (LinearLayout) findViewById(R.id.order_btn);
         progressbar = (MaterialProgressBar) findViewById(R.id.progressbar);
 
+        carouselView = findViewById(R.id.carouselView);
+        carouselView.setPageCount(sampleImages.length);
+        carouselView.setImageListener(imageListener);
+
+
+       /* carouselView.setImageClickListener(new ImageClickListener() {
+            @Override
+            public void onClick(int position) {
+                Toast.makeText(SampleCarouselViewActivity.this, "Clicked item: "+ position, Toast.LENGTH_SHORT).show();
+            }
+        });*/
 
         orderButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,6 +133,15 @@ public class UserDashboard extends AppCompatActivity {
 
 
     }
+
+
+
+    ImageListener imageListener = new ImageListener() {
+        @Override
+        public void setImageForPosition(int position, ImageView imageView) {
+            imageView.setImageResource(sampleImages[position]);
+        }
+    };
 
     private void getChildrenList() {
 

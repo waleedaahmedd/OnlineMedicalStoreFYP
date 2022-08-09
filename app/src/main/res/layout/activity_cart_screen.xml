@@ -12,8 +12,6 @@
         android:layout_height="match_parent">
 
 
-
-
         <!-- <include
              layout="@layout/full_screen_progress_bar"
              android:id="@+id/progressbar"
@@ -41,26 +39,16 @@
                 android:textColor="@color/white"
                 android:textSize="18dp"></TextView>
 
-            <TextView
-
-                android:id="@+id/delete_cart"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:gravity="right"
-                android:text="Delete Cart"
-                android:textColor="@color/white"
-                android:textSize="18dp"></TextView>
 
         </LinearLayout>
 
 
         <me.zhanghai.android.materialprogressbar.MaterialProgressBar
-            android:layout_below="@+id/totalPrice_layout"
             android:id="@+id/progressbar"
             style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal"
             android:layout_width="match_parent"
             android:layout_height="10dp"
+            android:layout_below="@+id/totalPrice_layout"
             android:indeterminate="true"
             android:indeterminateTint="@color/colorPrimary"
             app:mpb_progressStyle="horizontal"
@@ -71,9 +59,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:text="Cart is Empty"
             android:textSize="19sp"
-            android:visibility="gone"
-            android:text="Cart is Empty"></TextView>
+            android:visibility="gone"></TextView>
 
 
         <androidx.recyclerview.widget.RecyclerView

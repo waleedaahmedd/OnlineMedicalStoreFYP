@@ -1,5 +1,6 @@
 package com.example.onlinemedicalstore;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
@@ -31,7 +33,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     private OrderScreen context;
     private OrderAdapter adapter;
     private String comingFrom;
-
 
 
     // RecyclerView recyclerView;
@@ -58,33 +59,55 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         holder.refNumber.setText(ListData.getRefNumber());
         holder.createdAt.setText(ListData.getDateAndTime());
         holder.status.setText(ListData.getStatus());
-        if (SharedPref.getInstance(context.getApplicationContext()).getUserType(context.getApplicationContext()).toUpperCase().equals("USER") || comingFrom != null){
+        holder.orderItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, OrderDetailScreen.class);
+                intent.putExtra("RefNumber",ListData.getRefNumber());
+                context.startActivity(intent);
+            }
+        });
+        if (SharedPref.getInstance(context.getApplicationContext()).getUserType(context.getApplicationContext()).toUpperCase().equals("USER") || comingFrom != null) {
             holder.deliveredBtn.setVisibility(View.GONE);
         }
 
-        holder.deliveredBtn.setOnClickListener(new View.OnClickListener() {
+        DatabaseReference mDatabaseRef = FirebaseDatabase.getInstance().getReference("Orders");
+        mDatabaseRef.child(ListData.getRefNumber()).child("Medicines").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onClick(View v) {
-               DatabaseReference orderReference = FirebaseDatabase.getInstance().getReference("Orders").child(ListData.getRefNumber());
-orderReference.addListenerForSingleValueEvent(new ValueEventListener() {
-    @Override
-    public void onDataChange(@NonNull DataSnapshot snapshot) {
-        orderReference.child("Status").setValue("Completed").addOnSuccessListener(new OnSuccessListener<Void>() {
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                holder.items.setText(String.valueOf(dataSnapshot.getChildrenCount()));
+
+            }
+
             @Override
-            public void onSuccess(Void unused) {
-                listData.remove(ListData);
-                adapter.notifyDataSetChanged();
+            public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
 
-        }
+        holder.deliveredBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatabaseReference orderReference = FirebaseDatabase.getInstance().getReference("Orders").child(ListData.getRefNumber());
+                orderReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        orderReference.child("Status").setValue("Completed").addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                listData.remove(ListData);
+                                adapter.notifyDataSetChanged();
 
-    @Override
-    public void onCancelled(@NonNull DatabaseError error) {
+                            }
+                        });
 
-    }
-});
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
         });
       /*  holder.name.setText(ListData.getName());
@@ -102,17 +125,20 @@ orderReference.addListenerForSingleValueEvent(new ValueEventListener() {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView price , refNumber, createdAt, status;
+        public TextView price, refNumber, createdAt, status, items;
         public Button deliveredBtn;
+        public CardView orderItem;
 
 
         public ViewHolder(View itemView) {
             super(itemView);
+
+            this.orderItem = (CardView) itemView.findViewById(R.id.order_item);
             this.price = (TextView) itemView.findViewById(R.id.status_total_price);
             this.refNumber = (TextView) itemView.findViewById(R.id.status_ref_Number);
             this.status = (TextView) itemView.findViewById(R.id.status_status);
             this.createdAt = (TextView) itemView.findViewById(R.id.status_created_at);
-
+            this.items = (TextView) itemView.findViewById(R.id.status_total_items);
             this.deliveredBtn = (Button) itemView.findViewById(R.id.btn_delivered);
 
         }

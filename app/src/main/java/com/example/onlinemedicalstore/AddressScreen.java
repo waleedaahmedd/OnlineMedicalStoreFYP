@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -123,6 +124,33 @@ public class AddressScreen extends AppCompatActivity {
                                                                         progressBar.setVisibility(View.GONE);
                                                                         Toast.makeText(AddressScreen.this, "Order Submitted Successfully", Toast.LENGTH_SHORT).show();
 
+
+                                                                      /*  cartReference.child("Medicines").child("-N1G0r7zXUP3QAs_Mvgm").removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                            @Override
+                                                                            public void onSuccess(Void unused) {
+                                                                              *//*  listData.remove(ListData);
+                                                                                adapter.notifyDataSetChanged();*//*
+                                                                                *//*   if (listData.size() == 1){
+
+                                                                                 *//**//* ((Activity)context).;*//**//*                        }*//*
+                                                                                // listData.remove(ListData);
+                                                                            }
+                                                                        });*/
+
+                                                                        cartReference.child(maAuth.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                            @Override
+                                                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                                                for (DataSnapshot medicineSnapshot: dataSnapshot.getChildren()) {
+                                                                                    medicineSnapshot.getRef().removeValue();
+                                                                                }
+                                                                                finish();
+                                                                            }
+
+                                                                            @Override
+                                                                            public void onCancelled(DatabaseError databaseError) {
+                                                                                Toast.makeText(AddressScreen.this, "Went Wrong", Toast.LENGTH_SHORT).show();
+                                                                            }
+                                                                        });
                                                                     }
                                                                 });
                                                             }
