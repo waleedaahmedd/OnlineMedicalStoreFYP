@@ -93,8 +93,9 @@ public class MedicineDetail extends AppCompatActivity {
                 final DatabaseReference RootRef1;
                 RootRef1 = FirebaseDatabase.getInstance().getReference().child("Carts");
                 String id = maAuth.getCurrentUser().getUid();
-                int totalPrice = Integer.parseInt(medicineDetail.getPrice()) * Integer.parseInt(qtyButton.getNumber()) ;
-
+                double price = Double.parseDouble(medicineDetail.getPrice());
+                int totalPrice = (int)price * Integer.parseInt(qtyButton.getNumber()) ;
+                System.out.println(String.valueOf(totalPrice));
                 RootRef1.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
