@@ -119,7 +119,7 @@ public class MedicineDetail extends AppCompatActivity {
                             cartDataMap.put("itemQuantity", qtyButton.getNumber());
                             cartDataMap.put("unit", medicineDetail.getUnit());
                             cartDataMap.put("price", totalPrice);
-                            cartDataMap.put("originalPrice", medicineDetail.getPrice());
+                            cartDataMap.put("originalPrice", String.valueOf((int) Math.round(medicineDetail.getOldPrice())));
                             RootRef1.child(id).child("Medicines").child(medicineDetail.getMedicineId()).updateChildren(cartDataMap)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override

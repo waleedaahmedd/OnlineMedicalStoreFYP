@@ -104,7 +104,8 @@ public class AddNewMedicine extends AppCompatActivity {
 
         } else {
             oldPrice = Double.parseDouble(price);
-            price = String.valueOf(Double.parseDouble(price) - (Double.parseDouble(price) * Double.parseDouble(discount) / 100) );
+            final int doublePrice =(int) Math.round( Double.parseDouble(price) - (Double.parseDouble(price) * Double.parseDouble(discount) / 100));
+            price = String.valueOf(doublePrice);
         }
 
         if (TextUtils.isEmpty(name) && TextUtils.isEmpty(price) && TextUtils.isEmpty(description) && TextUtils.isEmpty(quantity) && TextUtils.isEmpty(unit) && TextUtils.isEmpty(manufacturer)) {
